@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  resources :quizes, only: %i[index show]
+  resources :responses, only: %i[create show]
+  
   devise_for :users
   # devise_for :admins
   root 'home#index'

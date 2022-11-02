@@ -1,0 +1,36 @@
+
+<%= form_for(Response.new, url: responses_path)  do |f| %>
+
+<div class = "d-flex justify-content-center mt-5">
+<%if !@quiz.nil?%>
+
+<% @quiz.questions.each do |question| %>
+<div>
+  <h3><%= question.question %></h3>
+      <%= hidden_field_tag :quizze_id, @quiz.id %>
+      <%= hidden_field_tag :score, 20 %>
+
+  <hr>
+        <%=label_tag question.op1%>
+        <%= radio_button_tag question.id, question.op1 %>
+        <%=label_tag question.op2%>
+        <%= radio_button_tag question.id, question.op2 %>
+        <%=label_tag question.op3%>
+        <%= radio_button_tag question.id, question.op3%>
+        <%=label_tag question.op4%>
+        <%= radio_button_tag question.id, question.op4%>
+      </div>
+      <br>
+      <br>
+<% end %>
+
+<%end%>
+
+  <p>
+    <%= f.submit %>
+  </p>
+
+<% end %> 
+
+
+  <!-- submit -->
