@@ -1,13 +1,16 @@
 class ResponsesController < ApplicationController
-  def index
-  end
+  before_action :authenticate_user!
 
-  def new
+  def index
+    @all_response = current_user.responses
   end
   
+  def leaderboard
+    @leaderboard = Response.all.order('created_at DESC')
+  end
+
   def show
     @responses = Response.find(params[:id])
-
   end
   
   def create
@@ -15,10 +18,11 @@ class ResponsesController < ApplicationController
     @responses.user_id = current_user.id
     @responses.quizze_id = params[:quizze_id]
     @responses.score = calculate_score(params)
+    
     if @responses.save
       redirect_to  response_path(@responses)
     else
-    end
+    end   
   end
 
   private
@@ -27,20 +31,24 @@ class ResponsesController < ApplicationController
   end
 
   def calculate_score(params)
-    hash_arr = []
+    count = 0
+    hash2 = {}    
+    quiz = Quizze.find(params[:quizze_id])
+    question = quiz.questions
+    question.each do |q| hash2.merge!(q.id=>q.answer)  end
 
-hash1 = {"1" => params['1'], "2" => params['2'], "3" => params['3']}
-hash2 = {"1" => 'fire', "2" => '2', "3" => 'cool'}
+      hash2.stringify_keys!
+
+hash1 =  params.except(:authenticity_token,:quizze_id,:score,:commit,:controller,:action)
 
 hash1.each do |key,value| 
   hash2.each do |k,v|
-  if key==k && value==v 
-      puts"okay" 
+      if key==k && value==v 
+          count+=1
       end 
   end 
 end
+return count*5;
 
-# hash_arr.push(hash2)
-    debugger
   end
 end

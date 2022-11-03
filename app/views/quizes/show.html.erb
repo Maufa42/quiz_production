@@ -1,36 +1,27 @@
-
 <%= form_for(Response.new, url: responses_path)  do |f| %>
-
-<div class = "d-flex justify-content-center mt-5">
-<%if !@quiz.nil?%>
-
-<% @quiz.questions.each do |question| %>
-<div>
-  <h3><%= question.question %></h3>
-      <%= hidden_field_tag :quizze_id, @quiz.id %>
-      <%= hidden_field_tag :score, 20 %>
-
-  <hr>
-        <%=label_tag question.op1%>
-        <%= radio_button_tag question.id, question.op1 %>
-        <%=label_tag question.op2%>
-        <%= radio_button_tag question.id, question.op2 %>
-        <%=label_tag question.op3%>
-        <%= radio_button_tag question.id, question.op3%>
-        <%=label_tag question.op4%>
-        <%= radio_button_tag question.id, question.op4%>
-      </div>
-      <br>
-      <br>
-<% end %>
-
+        <div class="modal-content" data-controller="hello">
+  <span id='timer' style="font-size:25px;"></span>
+  <% @quiz.questions.each do |question| %>
+            <div class="modal-header">
+                <h3><%= question.question %></h3>
+                <%= hidden_field_tag :quizze_id, @quiz.id %>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-3 5"></div>
+                <div class="quiz" id="quiz" data-toggle="buttons">
+                     <%=f.label question.op1, class: "element-animation1 btn btn-lg btn-danger btn-block"%>
+                    <%= radio_button_tag question.id, question.op1,class: "glyphicon glyphicon-chevron-right" %>
+                      <%=f.label question.op2, class: "element-animation1 btn btn-lg btn-danger btn-block"%>
+                    <%= radio_button_tag question.id, question.op2,class: "glyphicon glyphicon-chevron-right" %>
+                    <%=f.label question.op3, class: "element-animation1 btn btn-lg btn-danger btn-block"%>
+                    <%= radio_button_tag question.id, question.op3,class: "glyphicon glyphicon-chevron-right" %>
+                    <%=f.label question.op4, class: "element-animation1 btn btn-lg btn-danger btn-block"%>
+                    <%= radio_button_tag question.id, question.op4,class: "glyphicon glyphicon-chevron-right" %>
+                </div>
+            </div>
+        </div>
 <%end%>
-
-  <p>
-    <%= f.submit %>
-  </p>
-
-<% end %> 
-
+  <%= f.button id: "aryan"%>
+<%end%>
 
   <!-- submit -->
