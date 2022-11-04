@@ -39,16 +39,16 @@ class ResponsesController < ApplicationController
 
       hash2.stringify_keys!
 
-hash1 =  params.except(:authenticity_token,:quizze_id,:score,:commit,:controller,:action)
+      hash1 =  params.except(:authenticity_token,:quizze_id,:score,:commit,:controller,:action)
 
-hash1.each do |key,value| 
-  hash2.each do |k,v|
-      if key==k && value==v 
-          count+=1
-      end 
-  end 
-end
-return count*5;
+      hash1.each do |key,value| 
+        hash2.each do |k,v|
+            if key==k && value==v 
+                count+=1
+            end 
+        end 
+      end
+      return count*5;
 
   end
 end
