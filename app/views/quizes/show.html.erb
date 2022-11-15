@@ -2,11 +2,11 @@
         <div class="modal-content" data-controller="hello">
   <span id='timer' style="font-size:25px;"></span>
   <% @quiz.questions.each do |question| %>
-            <div class="modal-header">
+            <div class="modal-header"  data-hello-my-value="<%= current_user.id %>" >
                 <h3><%= question.question %></h3>
                 <%= hidden_field_tag :quizze_id, @quiz.id %>
             </div>
-            <div class="modal-body">
+            <div class="modal-body jkljkl">
                 <div class="col-xs-3 5"></div>
                 <div class="quiz" id="quiz" data-toggle="buttons">
                      <%=f.label question.op1, class: "element-animation1 btn btn-lg btn-danger btn-block"%>
